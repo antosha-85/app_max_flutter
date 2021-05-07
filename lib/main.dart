@@ -9,12 +9,12 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
   @override
   Widget build(BuildContext context) {
     var questions = [
@@ -23,21 +23,21 @@ class MyAppState extends State<MyApp> {
     ];
     void answerQuestion() {
       setState(() {
-        questionIndex++;
+        _questionIndex++;
+        print('question Index ' + _questionIndex.toString());
       });
-      print('question Index ' + questionIndex.toString());
     }
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Anton's App"),
+          title: Text(questions[_questionIndex]),
         ),
         body: Column(
           children: <Widget>[
-            Text(questions[questionIndex]),
+            Text(questions[_questionIndex]),
             ElevatedButton(
-              child: Text(questions[0]),
+              child: Text("Answer 1"),
               onPressed: answerQuestion,
             ),
             ElevatedButton(
