@@ -1,3 +1,4 @@
+import 'package:app_max/answer.dart';
 import 'package:app_max/question.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       'What\'s your favorite color?',
       'What\'s your favorite animal?'
     ];
-    void answerQuestion() {
+    void _answerQuestion() {
       setState(() {
         _questionIndex++;
         print('question Index ' + _questionIndex.toString());
@@ -37,21 +38,9 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: <Widget>[
             Question(questions[_questionIndex]),
-            ElevatedButton(
-              child: Text("Answer 1"),
-              onPressed: answerQuestion,
-            ),
-            ElevatedButton(
-              child: Text('Answer 2'),
-              onPressed: () => print('Answer 2 chosen!'),
-            ),
-            ElevatedButton(
-              child: Text('Answer 3'),
-              onPressed: () {
-                //
-                print('Answer 3 chosen!');
-              },
-            ),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
