@@ -1,6 +1,7 @@
-import 'package:app_max/answer.dart';
-import 'package:app_max/question.dart';
 import 'package:flutter/material.dart';
+
+import 'quiz.dart';
+import 'result.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,22 +14,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  final List _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': ['Black', 'Red', "Green", 'White']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': ['Rabbit', 'Snake', "Elephant", 'Lion']
+    },
+    {
+      'questionText': 'Who\'s your favorite instructor?',
+      'answers': ['Anton', 'Oksana', "Max", 'Kyle']
+    },
+  ];
   @override
   Widget build(BuildContext context) {
-    const List questions = const [
-      {
-        'questionText': 'What\'s your favorite color?',
-        'answers': ['Black', 'Red', "Green", 'White']
-      },
-      {
-        'questionText': 'What\'s your favorite animal?',
-        'answers': ['Rabbit', 'Snake', "Elephant", 'Lion']
-      },
-      {
-        'questionText': 'Who\'s your favorite instructor?',
-        'answers': ['Anton', 'Oksana', "Max", 'Kyle']
-      },
-    ];
     void _answerQuestion() {
       setState(() {
         _questionIndex++;
@@ -41,14 +42,12 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('My App'),
         ),
-        body: Column(
-          children: <Widget>[
-            Question(questions[_questionIndex]['questionText']),
-            ...(questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) => Answer(_answerQuestion, answer))
-                .toList()
-          ],
-        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                answerQuestion: _answerQuestion,
+                questions: _questions,
+                questionIndex: _questionIndex)
+            : Result(),
       ),
     );
   }
