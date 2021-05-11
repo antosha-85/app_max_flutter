@@ -14,23 +14,40 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
   final List _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', "Green", 'White']
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': "Green", 'score': 3},
+        {'text': 'White', 'score': 1}
+      ]
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Rabbit', 'Snake', "Elephant", 'Lion']
+      'answers': [
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Snake', 'score': 11},
+        {'text': "Elephant", 'score': 5},
+        {'text': 'Lion', 'score': 9}
+      ]
     },
     {
       'questionText': 'Who\'s your favorite instructor?',
-      'answers': ['Anton', 'Oksana', "Max", 'Kyle']
+      'answers': [
+        {'text': 'Anton', 'score': 10},
+        {'text': 'Oksana', 'score': 8},
+        {'text': "Max", 'score': 5},
+        {'text': 'Kyle', 'score': 3}
+      ]
     },
   ];
   @override
   Widget build(BuildContext context) {
-    void _answerQuestion() {
+    void _answerQuestion(int score) {
+      _totalScore += score;
       setState(() {
         _questionIndex++;
         print('question Index ' + _questionIndex.toString());
@@ -47,7 +64,7 @@ class _MyAppState extends State<MyApp> {
                 answerQuestion: _answerQuestion,
                 questions: _questions,
                 questionIndex: _questionIndex)
-            : Result(),
+            : Result(_totalScore),
       ),
     );
   }
